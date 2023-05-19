@@ -6,16 +6,15 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public float speed, jumpHeight;
-    public float gravity;
+    public float maxSpeed, groundedAcceleration, groundedDeceleration, airAcceleration, airDeceleration, jumpHeight;
+    public float IdleGravity, jumpingGravity;
 
     public LayerMask groundCheckMask;
 
     private Rigidbody2D rb;
     private Vector2 velocity;
-    private float jumpSpeed;
     private Vector2 inputs;
-    private bool grounded, jumping;
+    public bool grounded, jumping;
     private bool jumpTrigger;
 
     // Start is called before the first frame update
@@ -24,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         grounded = true;
         jumping = jumpTrigger = false;
-        jumpSpeed = Mathf.Sqrt(2*gravity*jumpHeight);
     }
 
     // Update is called once per frame
@@ -43,11 +41,18 @@ public class PlayerMovement : MonoBehaviour
 
         checkGrounded(0.05f);
 
-        float velocityX = inputs.x * speed;
-        float velocityY;
-        if(!grounded || jumping)
+        #region Gravity and Jumping
+        float velocityY = velocity.y;
+        if(!grounded)
         {
-            velocityY = velocity.y - gravity * Time.deltaTime;
+            if(jumping)
+            {
+                velocityY -= jumpingGravity * Time.deltaTime;
+            }
+            else
+            {
+                velocityY -= IdleGravity * Time.deltaTime;
+            }
             if(velocityY <= 0)
             {
                 jumping = false;
@@ -59,10 +64,42 @@ public class PlayerMovement : MonoBehaviour
             if(jumpTrigger)
             {
                 Debug.Log("Jumping");
-                velocityY = jumpSpeed;
+                velocityY = Mathf.Sqrt(2*jumpingGravity*jumpHeight);;
                 jumping = true;
             }
         }
+        #endregion
+
+        #region Horizontal Movement
+        float velocityX = velocity.x;
+        if(inputs.x != 0)
+        {
+            if(grounded)
+            {
+                velocityX += inputs.x * groundedAcceleration * Time.deltaTime;
+            }
+            else
+            {
+                velocityX += inputs.x * airAcceleration * Time.deltaTime;
+            }
+        }
+        else
+        {
+            float sign = Mathf.Sign(velocityX);
+            if(grounded)
+            {
+                velocityX -= sign * groundedDeceleration * Time.deltaTime;
+            }
+            else
+            {
+                velocityX -= sign * airDeceleration * Time.deltaTime;
+            }
+            if(sign != Mathf.Sign(velocityX)) velocityX = 0f;
+        }
+        if(velocityX > maxSpeed) velocityX = maxSpeed;
+        if(velocityX < -maxSpeed) velocityX = -maxSpeed;
+        #endregion
+
         velocity = new Vector2(velocityX, velocityY);
 
         rb.velocity = velocity;
@@ -71,7 +108,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void checkGrounded(float dist)
     {
-        if(jumping) return;
+        if(jumping)
+        {
+            grounded = false;
+            return;
+        }
         RaycastHit2D groundCheckHit = Physics2D.Raycast(transform.position + Vector3.down*1.01f, Vector3.down, dist, groundCheckMask);
         if(groundCheckHit.collider != null)
         {

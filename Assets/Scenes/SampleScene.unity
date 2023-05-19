@@ -191,12 +191,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08df65dce2377449955f99b4fbd5e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  jumpHeight: 2
-  gravity: 9.8
+  maxSpeed: 7
+  groundedAcceleration: 20
+  groundedDeceleration: 30
+  airAcceleration: 10
+  airDeceleration: 6
+  jumpHeight: 3
+  IdleGravity: 20
+  jumpingGravity: 15
   groundCheckMask:
     serializedVersion: 2
     m_Bits: 183
+  grounded: 0
+  jumping: 0
 --- !u!60 &113859273
 PolygonCollider2D:
   m_ObjectHideFlags: 0
