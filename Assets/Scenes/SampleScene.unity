@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 113859270}
   - component: {fileID: 113859272}
   - component: {fileID: 113859273}
+  - component: {fileID: 113859274}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -192,10 +193,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 7
-  groundedAcceleration: 20
-  groundedDeceleration: 30
-  airAcceleration: 10
-  airDeceleration: 6
+  groundedAcceleration: 40
+  groundedDeceleration: 50
+  airAcceleration: 30
+  airDeceleration: 10
   jumpHeight: 3
   minPositionDelta: 0.001
   IdleGravity: 35
@@ -236,6 +237,21 @@ PolygonCollider2D:
       - {x: -0.65, y: 0.9}
       - {x: 0.7, y: 0.9}
       - {x: 0.7, y: -0.97}
+--- !u!114 &113859274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113859269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e911113d92cae43a97197cd8524866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraObj: {fileID: 519420028}
+  playerPlay: {x: 4, y: 3}
+  bounds: []
 --- !u!1 &334666246
 GameObject:
   m_ObjectHideFlags: 0
