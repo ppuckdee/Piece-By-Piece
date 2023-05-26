@@ -6,13 +6,16 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public float maxSpeed, groundedAcceleration, groundedDeceleration, airAcceleration, airDeceleration, jumpHeight;
+    public float maxSpeed, groundedAcceleration, groundedDeceleration, airAcceleration, airDeceleration, jumpHeight, minPositionDelta;
     public float IdleGravity, jumpingGravity;
 
     public LayerMask groundCheckMask;
 
+    public float standingPlayerHeight, crouchPlayerHeight;
+
     private Rigidbody2D rb;
     private Vector2 velocity;
+    private Vector2 lastPosition;
     private Vector2 inputs;
     public bool grounded, jumping;
     private bool jumpTrigger;
@@ -31,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
         inputs = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         if(Input.GetButtonDown("Jump"))
         {
-            Debug.Log("JumpTrigger");
             jumpTrigger = true;
         }
     }
@@ -63,7 +65,6 @@ public class PlayerMovement : MonoBehaviour
             velocityY = 0f;
             if(jumpTrigger)
             {
-                Debug.Log("Jumping");
                 velocityY = Mathf.Sqrt(2*jumpingGravity*jumpHeight);;
                 jumping = true;
             }
@@ -74,6 +75,11 @@ public class PlayerMovement : MonoBehaviour
         float velocityX = velocity.x;
         if(inputs.x != 0)
         {
+            Vector2 positionDelta = (Vector2)transform.position - lastPosition;
+            if(Mathf.Abs(positionDelta.x) <= minPositionDelta)
+            {
+                velocityX = 0f;
+            }
             if(grounded)
             {
                 velocityX += inputs.x * groundedAcceleration * Time.deltaTime;
@@ -103,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
         velocity = new Vector2(velocityX, velocityY);
 
         rb.velocity = velocity;
+        lastPosition = transform.position;
         resetTriggers();
     }
 
