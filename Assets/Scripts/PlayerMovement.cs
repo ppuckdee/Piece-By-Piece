@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
             velocityY = 0f;
             if(jumpTrigger)
             {
-                velocityY = Mathf.Sqrt(2*jumpingGravity*jumpHeight);;
+                velocityY = Mathf.Sqrt(2*jumpingGravity*jumpHeight);
                 jumping = true;
             }
         }

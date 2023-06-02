@@ -39,8 +39,5 @@ public class CameraControl : MonoBehaviour
         {
             cameraObj.transform.position = new Vector3(cameraObj.transform.position.x, playerPosition.y + playerPlay.y, cameraObj.transform.position.z);
         }
-        
-
-        Debug.Log("Dist From Camera: " + playerDistFromCam);
     }
 }
