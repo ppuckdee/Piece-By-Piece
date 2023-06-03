@@ -132,13 +132,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 113859271}
+  - component: {fileID: 113859275}
   - component: {fileID: 113859270}
   - component: {fileID: 113859272}
   - component: {fileID: 113859273}
   - component: {fileID: 113859274}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -252,6 +253,20 @@ MonoBehaviour:
   cameraObj: {fileID: 519420028}
   playerPlay: {x: 4, y: 3}
   bounds: []
+--- !u!114 &113859275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113859269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 978d04c1114274fe0a50fadd68ed72a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  health: 0
 --- !u!1 &334666246
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +814,7 @@ GameObject:
   - component: {fileID: 1071100654}
   - component: {fileID: 1071100656}
   - component: {fileID: 1071100657}
+  - component: {fileID: 1071100658}
   m_Layer: 0
   m_Name: SnailEnemy
   m_TagString: Untagged
@@ -819,8 +835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  start: {x: -8, y: -3}
-  end: {x: 0, y: -3}
+  targetPoints: []
 --- !u!4 &1071100655
 Transform:
   m_ObjectHideFlags: 0
@@ -884,6 +899,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.901762, y: 0.4160316}
   m_EdgeRadius: 0
+--- !u!114 &1071100658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071100653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c510ff3c9e142e982033d5d4d2a450, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 2
+  playerHealth: {fileID: 113859275}
 --- !u!1 &1532474009
 GameObject:
   m_ObjectHideFlags: 0
