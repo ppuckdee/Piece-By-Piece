@@ -5,14 +5,12 @@ using UnityEngine;
 public class SnailScript : MonoBehaviour
 {
     public float speed;
-    public float[] targetPoints = new float[2];
+    public float[] targetPoints;
     private Vector2 dir;
     private Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
-        targetPoints[0] = -5f; // Left target point
-        targetPoints[1] = 5f;  // Right target point
         rb = GetComponent<Rigidbody2D>();
         dir = Vector2.right;
         Debug.Log(dir);
