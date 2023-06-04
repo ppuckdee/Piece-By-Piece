@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SnailMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour
 {
     public Transform[] patrolPoints;
     public float moveSpeed;
