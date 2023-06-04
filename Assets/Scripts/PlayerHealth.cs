@@ -6,19 +6,26 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 10;
     public int health;
+    public float invincibilityTime = 2f; 
+    private float lastDamageTime; 
 
-    // Start is called before the first frame update
     void Start()
     {
-       health = maxHealth; 
+        health = maxHealth;
+        lastDamageTime = -invincibilityTime; 
     }
 
-public void TakeDamage(int damage) 
+    public void TakeDamage(int damage)
     {
-        health -= damage;
-        if (health <= 0)
+        if (Time.time - lastDamageTime >= invincibilityTime)
         {
-            Destroy(gameObject);
+            health -= damage;
+            lastDamageTime = Time.time;
+
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
-    }   
+    }
 }

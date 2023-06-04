@@ -7,11 +7,23 @@ public class EnemyDamage : MonoBehaviour
     public int damage;
     public PlayerHealth playerHealth;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private Collider2D levelCollider; //collide with level
+    private Collider2D damageCollider; //damage player
+
+    private void Start()
     {
-        if(collision.gameObject.tag == "Player")
+        levelCollider = GetComponent<Collider2D>();
+        damageCollider = transform.Find("DamageCollider").GetComponent<Collider2D>();
+
+        Physics2D.IgnoreCollision(levelCollider, playerHealth.GetComponent<Collider2D>());
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
         {
             playerHealth.TakeDamage(damage);
         }
     }
 }
+
