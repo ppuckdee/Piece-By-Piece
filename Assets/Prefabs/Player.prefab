@@ -322,6 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraObj: {fileID: 0}
   playerPlay: {x: 4, y: 3}
+  camScrollSpeed: 0
   bounds: []
 --- !u!114 &6621486710160354522
 MonoBehaviour:
@@ -339,7 +340,10 @@ MonoBehaviour:
   grappleUIObject: {fileID: 1342254451}
   grappleOriginPoint: {fileID: 3483275414878824654}
   grappleLine: {fileID: 6621486710704595480}
-  swingDeceleration: 0
+  reelSpeed: 15
+  grappleLayerMask:
+    serializedVersion: 2
+    m_Bits: 659
 --- !u!1 &6621486710704595480
 GameObject:
   m_ObjectHideFlags: 0

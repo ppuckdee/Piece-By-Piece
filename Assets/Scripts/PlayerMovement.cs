@@ -111,9 +111,9 @@ public class PlayerMovement : MonoBehaviour
     private void checkGrounded(float dist)
     {
         BoxCollider2D collider = GetComponent<BoxCollider2D>();
-        Vector3 ray1Pos = transform.position + new Vector3(collider.offset.x - collider.size.x/2 + 0.005f, collider.offset.y - collider.size.y/2 + 0.005f);
+        Vector3 ray1Pos = transform.position + new Vector3(collider.offset.x - collider.size.x/2 + 0.05f, collider.offset.y - collider.size.y/2 + 0.005f);
         Vector3 ray2Pos = transform.position + new Vector3(collider.offset.x, collider.offset.y - collider.size.y/2 + 0.005f);
-        Vector3 ray3Pos = transform.position + new Vector3(collider.offset.x + collider.size.x/2 - 0.005f, collider.offset.y - collider.size.y/2 + 0.005f);
+        Vector3 ray3Pos = transform.position + new Vector3(collider.offset.x + collider.size.x/2 - 0.05f, collider.offset.y - collider.size.y/2 + 0.005f);
 
         Debug.DrawRay(ray1Pos, Vector2.down*dist, Color.red);
         Debug.DrawRay(ray2Pos, Vector2.down*dist, Color.red);

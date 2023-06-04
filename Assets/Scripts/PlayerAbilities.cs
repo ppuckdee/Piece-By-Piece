@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerAbilities : MonoBehaviour
@@ -15,11 +16,12 @@ public class PlayerAbilities : MonoBehaviour
     public List<Mutation> mutations;
 
     public GameObject grappleOriginPoint, grappleLine;
-    public float swingDeceleration;
+    public float reelSpeed;
+    public LayerMask grappleLayerMask;
     private Rigidbody2D rb;
     private Vector2 grapplePoint;
     private float swingLength;
-    private bool swinging;
+    private bool swinging, startedOnReel;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +29,7 @@ public class PlayerAbilities : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         mutations = new List<Mutation>();
         rb = GetComponent<Rigidbody2D>();
-        swinging = false;
+        swinging = startedOnReel = false;
         grappleLine.SetActive(false);
     }
 
@@ -45,13 +47,38 @@ public class PlayerAbilities : MonoBehaviour
 
         if(grappleType != mutationType.NULL)
         {
-            if(Input.GetMouseButtonDown(0))
+            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D mouseHit = Physics2D.Raycast(mouseRay.origin, mouseRay.direction);
+            if(swinging || mouseHit.collider && mouseHit.collider.gameObject.tag == "GrapplePoint")
             {
-                startSwing();
+                Vector2 grappleRay = Camera.main.ScreenToWorldPoint(Input.mousePosition)-grappleOriginPoint.transform.position;
+                Debug.DrawRay(grappleOriginPoint.transform.position, grappleRay, Color.white);
+                RaycastHit2D grappleHit = Physics2D.Raycast(grappleOriginPoint.transform.position, grappleRay, grappleRay.magnitude, grappleLayerMask);
+                if(swinging || grappleHit && grappleHit.collider.gameObject.tag == "GrapplePoint")
+                {
+                    grappleUIObject.GetComponent<Image>().color = Color.green;
+                    if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+                    {
+                        if(swinging)
+                        {
+                            startedOnReel = false;
+                        }
+                        if(!swinging)
+                        {
+                            startedOnReel = Input.GetMouseButtonDown(1);
+                            startSwing((Vector2)grappleHit.collider.gameObject.transform.position + grappleHit.collider.offset);
+                        }
+                    }
+                    else if(Input.GetMouseButtonUp(0) || (Input.GetMouseButtonUp(1) && startedOnReel))
+                    {
+                        Debug.Log(startedOnReel);
+                        endSwing();
+                    }
+                }
             }
-            else if(Input.GetMouseButtonUp(0))
+            else
             {
-                endSwing();
+                grappleUIObject.GetComponent<Image>().color = Color.white;
             }
 
             #region visuals
@@ -74,14 +101,22 @@ public class PlayerAbilities : MonoBehaviour
             
             if(swinging)
             {
-                if(GetComponent<PlayerMovement>().grounded) 
+                if(GetComponent<PlayerMovement>().grounded && !startedOnReel) 
                 {
                     endSwing();
                 }
                 if(Input.GetMouseButton(1))
                 {
-                    swingLength -= 2f * Time.deltaTime;
-                    if(swingLength < 1.5f) swingLength = 1.5f;
+                    swingLength -= reelSpeed * (startedOnReel ? 2 : 1) * Time.deltaTime;
+                    if(swingLength < 1.5f && !startedOnReel)
+                    {
+                        swingLength = 1.5f;
+                    }
+                    else if(swingLength < .25f && startedOnReel)
+                    {
+                        swingLength = .25f;
+                    }
+                    if(startedOnReel) rb.velocity = Vector2.zero;
                 }
 
                 Vector2 currVelocity = rb.velocity;
@@ -102,7 +137,6 @@ public class PlayerAbilities : MonoBehaviour
                 
                 if((grapplePoint - (Vector2)transform.position).magnitude - swingLength != 0)
                 {
-                    Debug.Log("Correcting Swing");
                     transform.position = grapplePoint-(grapplePoint - (Vector2)transform.position).normalized * swingLength;
                 }
 
@@ -122,16 +156,19 @@ public class PlayerAbilities : MonoBehaviour
         }
     }
 
-    private void startSwing()
+    private void startSwing(Vector2 anchor)
     {
+        grappleUIObject.SetActive(false);
         swinging = true;
-        grapplePoint = (Vector2)Camera.main.ScreenToWorldPoint(grappleUIObject.transform.position);
+        grapplePoint = anchor;
         swingLength = (grapplePoint - (Vector2)transform.position).magnitude;
         grappleLine.SetActive(true);
         GetComponent<PlayerMovement>().freeBody = true;
     }
     private void endSwing()
     {
+        grappleUIObject.SetActive(true);
+        startedOnReel = false;
         swinging = false;
         grappleLine.SetActive(false);
         GetComponent<PlayerMovement>().freeBody = false;
