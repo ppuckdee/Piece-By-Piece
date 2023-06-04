@@ -14,12 +14,11 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
-        // Set the initial patrol destination
+
         patrolDest = 0;
         isChasing = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
@@ -40,17 +39,16 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            // Patrol logic
+
             if (patrolPoints.Length > 0)
             {
                 Transform destination = patrolPoints[patrolDest];
                 Vector3 patrolDirection = (destination.position - transform.position).normalized;
                 transform.position += patrolDirection * moveSpeed * Time.deltaTime;
 
-                // Check if reached the patrol destination
                 if (Vector2.Distance(transform.position, destination.position) < 0.1f)
                 {
-                    // Move to the next patrol destination
+
                     patrolDest = (patrolDest + 1) % patrolPoints.Length;
                 }
             }
