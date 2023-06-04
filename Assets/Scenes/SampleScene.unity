@@ -811,10 +811,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1071100655}
-  - component: {fileID: 1071100654}
   - component: {fileID: 1071100656}
   - component: {fileID: 1071100657}
   - component: {fileID: 1071100658}
+  - component: {fileID: 1071100659}
   m_Layer: 0
   m_Name: SnailEnemy
   m_TagString: Untagged
@@ -822,20 +822,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1071100654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1071100653}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b8d7c216f749bb49aa22e0245585cf2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  targetPoints: []
 --- !u!4 &1071100655
 Transform:
   m_ObjectHideFlags: 0
@@ -913,6 +899,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   playerHealth: {fileID: 113859275}
+--- !u!114 &1071100659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071100653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b8d7c216f749bb49aa22e0245585cf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolPoints: []
+  moveSpeed: 3
+  patrolDest: 20
+  playerTransform: {fileID: 113859271}
+  isChasing: 0
+  chaseDistance: 2
 --- !u!1 &1532474009
 GameObject:
   m_ObjectHideFlags: 0
