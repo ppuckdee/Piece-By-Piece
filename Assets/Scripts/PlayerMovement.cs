@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public float maxSpeed, groundedAcceleration, groundedDeceleration, airAcceleration, airDeceleration, jumpHeight, minPositionDelta;
+    public float maxSpeed, groundedAcceleration, groundedDeceleration, airAcceleration, airDeceleration, jumpHeight, groundCheckDist;
     public float IdleGravity, jumpingGravity;
 
     public LayerMask groundCheckMask;
@@ -14,18 +14,18 @@ public class PlayerMovement : MonoBehaviour
     public float standingPlayerHeight, crouchPlayerHeight;
 
     private Rigidbody2D rb;
-    private Vector2 velocity;
     private Vector2 lastPosition;
     private Vector2 inputs;
     public bool grounded, jumping;
     private bool jumpTrigger;
+    public bool freeBody;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         grounded = true;
-        jumping = jumpTrigger = false;
+        jumping = jumpTrigger = freeBody = false;
     }
 
     // Update is called once per frame
@@ -40,11 +40,10 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-
-        checkGrounded(0.05f);
+        checkGrounded(groundCheckDist);
 
         #region Gravity and Jumping
-        float velocityY = velocity.y;
+        float velocityY = rb.velocity.y;
         if(!grounded)
         {
             if(jumping)
@@ -62,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            velocityY = 0f;
+            if(velocityY < 0.25f) velocityY = -0.25f;
             if(jumpTrigger)
             {
                 velocityY = Mathf.Sqrt(2*jumpingGravity*jumpHeight);
@@ -72,25 +71,24 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Horizontal Movement
-        float velocityX = velocity.x;
+        float velocityX = rb.velocity.x;
         if(inputs.x != 0)
         {
-            Vector2 positionDelta = (Vector2)transform.position - lastPosition;
-            if(Mathf.Abs(positionDelta.x) <= minPositionDelta)
+            if(Mathf.Sign(velocityX) != Mathf.Sign(inputs.x) || (velocityX < maxSpeed && velocityX > -maxSpeed))
             {
-                velocityX = 0f;
-            }
-            if(grounded)
-            {
-                velocityX += inputs.x * groundedAcceleration * Time.deltaTime;
-            }
-            else
-            {
-                velocityX += inputs.x * airAcceleration * Time.deltaTime;
+                if(grounded)
+                {
+                    velocityX += inputs.x * groundedAcceleration * Time.deltaTime;
+                }
+                else
+                {
+                    velocityX += inputs.x * airAcceleration * Time.deltaTime;
+                }
             }
         }
-        else
+        else if(velocityX != 0 && !freeBody)
         {
+            Vector2 positionDelta = (Vector2)transform.position - lastPosition;
             float sign = Mathf.Sign(velocityX);
             if(grounded)
             {
@@ -102,26 +100,33 @@ public class PlayerMovement : MonoBehaviour
             }
             if(sign != Mathf.Sign(velocityX)) velocityX = 0f;
         }
-        if(velocityX > maxSpeed) velocityX = maxSpeed;
-        if(velocityX < -maxSpeed) velocityX = -maxSpeed;
         #endregion
 
-        velocity = new Vector2(velocityX, velocityY);
+        rb.velocity = new Vector2(velocityX, velocityY);
 
-        rb.velocity = velocity;
         lastPosition = transform.position;
         resetTriggers();
     }
 
     private void checkGrounded(float dist)
     {
+        BoxCollider2D collider = GetComponent<BoxCollider2D>();
+        Vector3 ray1Pos = transform.position + new Vector3(collider.offset.x - collider.size.x/2 + 0.005f, collider.offset.y - collider.size.y/2 + 0.005f);
+        Vector3 ray2Pos = transform.position + new Vector3(collider.offset.x, collider.offset.y - collider.size.y/2 + 0.005f);
+        Vector3 ray3Pos = transform.position + new Vector3(collider.offset.x + collider.size.x/2 - 0.005f, collider.offset.y - collider.size.y/2 + 0.005f);
+
+        Debug.DrawRay(ray1Pos, Vector2.down*dist, Color.red);
+        Debug.DrawRay(ray2Pos, Vector2.down*dist, Color.red);
+        Debug.DrawRay(ray3Pos, Vector2.down*dist, Color.red);
         if(jumping)
         {
             grounded = false;
             return;
         }
-        RaycastHit2D groundCheckHit = Physics2D.Raycast(transform.position + Vector3.down*1.01f, Vector3.down, dist, groundCheckMask);
-        if(groundCheckHit.collider != null)
+        RaycastHit2D groundCheckHit1 = Physics2D.Raycast(ray1Pos, Vector3.down, dist, groundCheckMask);
+        RaycastHit2D groundCheckHit2 = Physics2D.Raycast(ray2Pos, Vector3.down, dist, groundCheckMask);
+        RaycastHit2D groundCheckHit3 = Physics2D.Raycast(ray3Pos, Vector3.down, dist, groundCheckMask);
+        if(groundCheckHit1.collider != null || groundCheckHit2.collider != null || groundCheckHit3.collider != null)
         {
             grounded = true;
         }
