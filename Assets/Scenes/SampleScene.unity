@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 228388957}
   - component: {fileID: 228388953}
   - component: {fileID: 228388952}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrogEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,6 +545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 361153920}
   - component: {fileID: 361153922}
+  - component: {fileID: 361153923}
   m_Layer: 0
   m_Name: Frog
   m_TagString: Untagged
@@ -969,7 +970,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1020581304}
   - component: {fileID: 1020581305}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Snail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1057,7 +1058,7 @@ GameObject:
   - component: {fileID: 1071100660}
   - component: {fileID: 1071100658}
   - component: {fileID: 1071100659}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SnailEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
