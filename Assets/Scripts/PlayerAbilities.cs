@@ -74,6 +74,12 @@ public class PlayerAbilities : MonoBehaviour
             
             if(swinging)
             {
+                if(Input.GetMouseButton(1))
+                {
+                    swingLength -= 2f * Time.deltaTime;
+                    if(swingLength < 1.5f) swingLength = 1.5f;
+                }
+
                 Vector2 currVelocity = rb.velocity;
                 Vector2 grappleDir = (grapplePoint-(Vector2)transform.position).normalized;
                 Vector2 swingDir1 = new Vector2(grappleDir.y, -grappleDir.x);
