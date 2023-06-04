@@ -7,14 +7,10 @@ public class EnemyDamage : MonoBehaviour
     public int damage;
     private PlayerHealth playerHealth;
 
-    private Collider2D levelCollider;
-    private Collider2D damageCollider;
+    public Collider2D levelCollider;
 
     private void Start()
     {
-        levelCollider = GetComponent<Collider2D>();
-        damageCollider = transform.Find("DamageCollider").GetComponent<Collider2D>();
-
         playerHealth = FindObjectOfType<PlayerHealth>();
 
         if (playerHealth != null)
