@@ -74,6 +74,10 @@ public class PlayerAbilities : MonoBehaviour
             
             if(swinging)
             {
+                if(GetComponent<PlayerMovement>().grounded) 
+                {
+                    endSwing();
+                }
                 if(Input.GetMouseButton(1))
                 {
                     swingLength -= 2f * Time.deltaTime;
@@ -131,10 +135,6 @@ public class PlayerAbilities : MonoBehaviour
         swinging = false;
         grappleLine.SetActive(false);
         GetComponent<PlayerMovement>().freeBody = false;
-    }
-
-    private void OnCollisionEnter2D(Collision2D other) {
-        endSwing();
     }
 
     public bool GiveMutation(mutationAbility ability, mutationType type)
