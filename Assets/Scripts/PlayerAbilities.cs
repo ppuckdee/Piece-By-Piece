@@ -66,7 +66,7 @@ public class PlayerAbilities : MonoBehaviour
                         if(!swinging)
                         {
                             startedOnReel = Input.GetMouseButtonDown(1);
-                            startSwing((Vector2)grappleHit.collider.gameObject.transform.position + grappleHit.collider.offset);
+                            startSwing((Vector2)grappleHit.collider.gameObject.transform.position + (Vector2)(grappleHit.collider.gameObject.transform.rotation * grappleHit.collider.offset));
                         }
                     }
                     else if(Input.GetMouseButtonUp(0) || (Input.GetMouseButtonUp(1) && startedOnReel))
@@ -114,7 +114,9 @@ public class PlayerAbilities : MonoBehaviour
                     }
                     else if(swingLength < .25f && startedOnReel)
                     {
-                        swingLength = .25f;
+                        endSwing();
+                        rb.velocity = (grapplePoint-(Vector2)transform.position).normalized * reelSpeed * 1.5f;
+                        return;
                     }
                     if(startedOnReel) rb.velocity = Vector2.zero;
                 }

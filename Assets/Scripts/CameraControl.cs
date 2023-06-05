@@ -32,22 +32,25 @@ public class CameraControl : MonoBehaviour
 
         Vector2 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 mouseDistFromCam = mouseWorldPos - cameraPosition;
-        if(mouseDistFromCam.x > playerPlay.x)
+        if(Input.GetKey(KeyCode.LeftShift))
         {
-            cameraObj.transform.position += Vector3.right * camScrollSpeed * Time.deltaTime;
-        }
-        else if(mouseDistFromCam.x < -playerPlay.x)
-        {
-            cameraObj.transform.position -= Vector3.right * camScrollSpeed * Time.deltaTime;
-        }
+            if(mouseDistFromCam.x > playerPlay.x)
+            {
+                cameraObj.transform.position += Vector3.right * camScrollSpeed * Time.deltaTime;
+            }
+            else if(mouseDistFromCam.x < -playerPlay.x)
+            {
+                cameraObj.transform.position -= Vector3.right * camScrollSpeed * Time.deltaTime;
+            }
 
-        if(mouseDistFromCam.y > playerPlay.y)
-        {
-            cameraObj.transform.position += Vector3.up * camScrollSpeed * Time.deltaTime;
-        }
-        else if(mouseDistFromCam.y < -playerPlay.y)
-        {
-            cameraObj.transform.position -= Vector3.up * camScrollSpeed * Time.deltaTime;
+            if(mouseDistFromCam.y > playerPlay.y)
+            {
+                cameraObj.transform.position += Vector3.up * camScrollSpeed * Time.deltaTime;
+            }
+            else if(mouseDistFromCam.y < -playerPlay.y)
+            {
+                cameraObj.transform.position -= Vector3.up * camScrollSpeed * Time.deltaTime;
+            }
         }
 
         cameraPosition = cameraObj.transform.position;
