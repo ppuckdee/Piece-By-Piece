@@ -36,6 +36,7 @@ public class PlayerAbilities : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         swinging = startedOnReel = false;
         grappleLine.SetActive(false);
+        grappleUIObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -213,6 +214,10 @@ public class PlayerAbilities : MonoBehaviour
         else
         {
             mutations.Add(new Mutation(type, ability));
+            if(ability == mutationAbility.GRAPPLE)
+            {
+                grappleUIObject.SetActive(true);
+            }
             return true;
         }
     }
@@ -221,7 +226,7 @@ public class PlayerAbilities : MonoBehaviour
     {
         for(int i = 0; i < mutations.Count; i++)
         {
-            if(mutations[i]. ability == ability)
+            if(mutations[i].ability == ability)
             {
                 return mutations[i].type;
             }
