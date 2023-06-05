@@ -145,6 +145,8 @@ public class PlayerAbilities : MonoBehaviour
                 grappleLine.transform.position = (grapplePoint + (Vector2)grappleOriginPoint.transform.position) / 2;
                 grappleLine.transform.localScale = new Vector3(0.25f, (grapplePoint - (Vector2)grappleOriginPoint.transform.position).magnitude, 1f);
                 Quaternion grappleRotation = Quaternion.Euler(0f, 0f, -Mathf.Atan(grappleDir.x/grappleDir.y) * 180 / Mathf.PI);
+                Quaternion grappleOriginRotation = Quaternion.Euler(0f, 0f, -Mathf.Atan(grappleDir.x/grappleDir.y) * 180 / Mathf.PI + 180);
+                grappleOriginPoint.transform.rotation = grappleOriginRotation;
                 grappleLine.transform.rotation = grappleRotation;
             }
         }

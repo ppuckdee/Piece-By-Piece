@@ -14,6 +14,10 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
+        if(!playerTransform)
+        {
+            playerTransform = FindObjectOfType<PlayerMovement>().transform;
+        }
 
         patrolDest = 0;
         isChasing = false;
