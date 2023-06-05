@@ -23,6 +23,11 @@ public class PlayerAbilities : MonoBehaviour
     private float swingLength;
     private bool swinging, startedOnReel;
 
+    private bool sliding;
+    public float slideBoost;
+    public float superJumpHeight;
+    private float normalJumpHeight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -152,11 +157,32 @@ public class PlayerAbilities : MonoBehaviour
         }
         if(superJumpType != mutationType.NULL)
         {
-            
+            if(Input.GetKeyDown(KeyCode.W))
+            {
+                normalJumpHeight = GetComponent<PlayerMovement>().jumpHeight;
+                GetComponent<PlayerMovement>().jumpHeight = superJumpHeight;
+            }
+            else if(Input.GetKeyUp(KeyCode.W))
+            {
+                GetComponent<PlayerMovement>().jumpHeight = normalJumpHeight;
+            }
         }
         if(slideType != mutationType.NULL)
         {
-            
+            if(Input.GetKeyDown(KeyCode.S))
+            {
+                if(!sliding && Mathf.Abs(rb.velocity.x) > GetComponent<PlayerMovement>().maxSpeed / 2)
+                {
+                    sliding = true;
+                    this.transform.localScale = new Vector3(1, 0.5f, 1);
+                    rb.velocity += Vector2.right * Mathf.Sign(rb.velocity.x) * slideBoost;
+                }
+            }
+            if(sliding && Mathf.Abs(rb.velocity.x) < GetComponent<PlayerMovement>().maxSpeed + 2f)
+            {
+                sliding = false;
+                this.transform.localScale = new Vector3(1, 1, 1);
+            }
         }
     }
 

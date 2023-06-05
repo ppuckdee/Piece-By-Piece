@@ -48,11 +48,11 @@ public class PlayerMovement : MonoBehaviour
         {
             if(jumping)
             {
-                velocityY -= jumpingGravity * Time.deltaTime;
+                velocityY -= jumpingGravity * Time.fixedDeltaTime;
             }
             else
             {
-                velocityY -= IdleGravity * Time.deltaTime;
+                velocityY -= IdleGravity * Time.fixedDeltaTime;
             }
             if(velocityY <= 0)
             {
@@ -78,12 +78,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 if(grounded)
                 {
-                    velocityX += inputs.x * groundedAcceleration * Time.deltaTime;
+                    velocityX += inputs.x * groundedAcceleration * Time.fixedDeltaTime;
                 }
                 else
                 {
-                    velocityX += inputs.x * airAcceleration * Time.deltaTime;
+                    velocityX += inputs.x * airAcceleration * Time.fixedDeltaTime;
                 }
+            }
+            else
+            {
+                velocityX -= Mathf.Sign(velocityX) * 7f * Time.fixedDeltaTime;
             }
         }
         else if(velocityX != 0 && !freeBody)
@@ -92,11 +96,11 @@ public class PlayerMovement : MonoBehaviour
             float sign = Mathf.Sign(velocityX);
             if(grounded)
             {
-                velocityX -= sign * groundedDeceleration * Time.deltaTime;
+                velocityX -= sign * groundedDeceleration * Time.fixedDeltaTime;
             }
             else
             {
-                velocityX -= sign * airDeceleration * Time.deltaTime;
+                velocityX -= sign * airDeceleration * Time.fixedDeltaTime;
             }
             if(sign != Mathf.Sign(velocityX)) velocityX = 0f;
         }
@@ -111,9 +115,9 @@ public class PlayerMovement : MonoBehaviour
     private void checkGrounded(float dist)
     {
         BoxCollider2D collider = GetComponent<BoxCollider2D>();
-        Vector3 ray1Pos = transform.position + new Vector3(collider.offset.x - collider.size.x/2 + 0.05f, collider.offset.y - collider.size.y/2 + 0.005f);
-        Vector3 ray2Pos = transform.position + new Vector3(collider.offset.x, collider.offset.y - collider.size.y/2 + 0.005f);
-        Vector3 ray3Pos = transform.position + new Vector3(collider.offset.x + collider.size.x/2 - 0.05f, collider.offset.y - collider.size.y/2 + 0.005f);
+        Vector3 ray1Pos = transform.position + new Vector3(collider.offset.x - collider.size.x/2 + 0.05f, collider.offset.y - collider.size.y/2 + 0.005f) * transform.localScale.y;
+        Vector3 ray2Pos = transform.position + new Vector3(collider.offset.x, collider.offset.y - collider.size.y/2 + 0.005f) * transform.localScale.y;
+        Vector3 ray3Pos = transform.position + new Vector3(collider.offset.x + collider.size.x/2 - 0.05f, collider.offset.y - collider.size.y/2 + 0.005f) * transform.localScale.y;
 
         Debug.DrawRay(ray1Pos, Vector2.down*dist, Color.red);
         Debug.DrawRay(ray2Pos, Vector2.down*dist, Color.red);
