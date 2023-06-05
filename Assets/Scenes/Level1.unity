@@ -564,6 +564,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: frogLineC.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
       propertyPath: frogLineC.b
       value: 0.76470596
       objectReference: {fileID: 0}
