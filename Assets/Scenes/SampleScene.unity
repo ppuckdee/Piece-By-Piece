@@ -886,7 +886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 440cf663ab3b3458eab909cfd943a692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 113859271}
   jumpHeight: 3
   jumping: 0
   grounded: 0

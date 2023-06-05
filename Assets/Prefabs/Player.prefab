@@ -344,6 +344,8 @@ MonoBehaviour:
   grappleLayerMask:
     serializedVersion: 2
     m_Bits: 659
+  slideBoost: 10
+  superJumpHeight: 7
 --- !u!1 &6621486710704595480
 GameObject:
   m_ObjectHideFlags: 0

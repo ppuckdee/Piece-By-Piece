@@ -14,6 +14,10 @@ public class FrogMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        if(!player)
+        {
+            player = FindObjectOfType<PlayerMovement>().transform;
+        }
         jumping = grounded = false;
     }
 
