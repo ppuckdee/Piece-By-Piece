@@ -383,6 +383,18 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6621486710160354512, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354512, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354512, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354512, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.76
       objectReference: {fileID: 0}
@@ -426,9 +438,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: slideBoost
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: superJumpHeight
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6621486710160354525, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
       propertyPath: camScrollSpeed
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354527, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: maxSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354527, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: groundedAcceleration
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354527, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: groundedDeceleration
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
@@ -620,7 +652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1212838831144805498, guid: 89088d3e99bd1bc4683a8498a2c212b9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 32.651413
+      value: 33.13
       objectReference: {fileID: 0}
     - target: {fileID: 1212838831144805498, guid: 89088d3e99bd1bc4683a8498a2c212b9, type: 3}
       propertyPath: m_LocalPosition.z
