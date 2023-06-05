@@ -961,6 +961,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1898943803, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 72657420110002548, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5533772889779545872, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6621486710160354512, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1009,10 +1021,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354514, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: spriteName
+      value: idle_
+      objectReference: {fileID: 0}
     - target: {fileID: 6621486710160354525, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
       propertyPath: cameraObj
       value: 
       objectReference: {fileID: 519420028}
+    - target: {fileID: 6621486710704595463, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
 --- !u!1001 &6761627261735371980

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraControl : MonoBehaviour
 {
@@ -22,6 +23,17 @@ public class CameraControl : MonoBehaviour
             cam = cameraObj.GetComponent<Camera>();
         }
         cameraObj.transform.position = new Vector3(transform.position.x, transform.position.y, cameraObj.transform.position.z);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    // called second
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("OnSceneLoaded: " + scene.name);
+        Debug.Log(mode);
+        
+        cam = Camera.main;
+        cameraObj = cam.gameObject;
     }
 
     // Update is called once per frame

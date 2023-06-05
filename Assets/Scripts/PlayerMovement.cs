@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
@@ -26,6 +27,19 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         grounded = true;
         jumping = jumpTrigger = freeBody = false;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    // called second
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("OnSceneLoaded: " + scene.name);
+        if(scene.name == "lvl3")
+        {
+            GetComponent<PlayerAbilities>().GiveMutation(PlayerAbilities.mutationAbility.SLIDE, PlayerAbilities.mutationType.ANIMAL);
+        }
+        Debug.Log(mode);
+        transform.position = FindObjectOfType<PlayerSpawn>().transform.position;
     }
 
     // Update is called once per frame

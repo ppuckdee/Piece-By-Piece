@@ -9,7 +9,11 @@ public class PlayerAbilities : MonoBehaviour
     public enum mutationType { NULL, ROBOT, PLANT, ANIMAL };
     public enum mutationAbility { GRAPPLE, SUPER_JUMP, SLIDE };
 
+    public Color grappleLineC, frogLineC, vineLineC;
+
     public float grappleRange;
+
+    public string spriteName = "idle_";
 
     public GameObject grappleUIObject;
 
@@ -22,6 +26,7 @@ public class PlayerAbilities : MonoBehaviour
     private Vector2 grapplePoint;
     private float swingLength;
     private bool swinging, startedOnReel;
+    GameObject sprite;
 
     private bool sliding;
     public float slideBoost;
@@ -31,6 +36,10 @@ public class PlayerAbilities : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(this);
+        sprite = Instantiate(Resources.Load(spriteName, typeof(GameObject))) as GameObject;
+        sprite.transform.SetParent(transform);
+        sprite.transform.localPosition = spriteName == "idle_" ? Vector3.down * 0.4f : Vector3.down;
         Cursor.lockState = CursorLockMode.Confined;
         mutations = new List<Mutation>();
         rb = GetComponent<Rigidbody2D>();
@@ -151,8 +160,7 @@ public class PlayerAbilities : MonoBehaviour
                 grappleLine.transform.position = (grapplePoint + (Vector2)grappleOriginPoint.transform.position) / 2;
                 grappleLine.transform.localScale = new Vector3(0.25f, (grapplePoint - (Vector2)grappleOriginPoint.transform.position).magnitude, 1f);
                 Quaternion grappleRotation = Quaternion.Euler(0f, 0f, -Mathf.Atan(grappleDir.x/grappleDir.y) * 180 / Mathf.PI);
-                Quaternion grappleOriginRotation = Quaternion.Euler(0f, 0f, -Mathf.Atan(grappleDir.x/grappleDir.y) * 180 / Mathf.PI + 180);
-                grappleOriginPoint.transform.rotation = grappleOriginRotation;
+                //grappleOriginPoint.transform.rotation = grappleRotation;
                 grappleLine.transform.rotation = grappleRotation;
             }
         }
@@ -203,6 +211,7 @@ public class PlayerAbilities : MonoBehaviour
         swinging = false;
         grappleLine.SetActive(false);
         GetComponent<PlayerMovement>().freeBody = false;
+        //grappleOriginPoint.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     public bool GiveMutation(mutationAbility ability, mutationType type)
@@ -217,6 +226,49 @@ public class PlayerAbilities : MonoBehaviour
             if(ability == mutationAbility.GRAPPLE)
             {
                 grappleUIObject.SetActive(true);
+            }
+            spriteName = "idle_";
+            mutationType nameTestingType = hasAbility(mutationAbility.SUPER_JUMP);
+            switch(nameTestingType)
+            {
+                case mutationType.ROBOT:
+                    spriteName += "rocket";
+                    break;
+                case mutationType.PLANT:
+                    spriteName += "mushroom";
+                    break;
+                case mutationType.ANIMAL:
+                    spriteName += "bunny";
+                    break;
+                default:
+                    spriteName += "";
+                    break;
+            }
+            nameTestingType = hasAbility(mutationAbility.GRAPPLE);
+            switch(nameTestingType)
+            {
+                case mutationType.ROBOT:
+                    spriteName += "hook";
+                    grappleLine.GetComponent<SpriteRenderer>().color = grappleLineC;
+                    break;
+                case mutationType.PLANT:
+                    spriteName += "vine";
+                    grappleLine.GetComponent<SpriteRenderer>().color = vineLineC;
+                    break;
+                case mutationType.ANIMAL:
+                    grappleLine.GetComponent<SpriteRenderer>().color = frogLineC;
+                    spriteName += "frog";
+                    break;
+                default:
+                    spriteName += "";
+                    break;
+            }
+            if(sprite)
+            {
+                Destroy(sprite);
+                sprite = Instantiate(Resources.Load(spriteName, typeof(GameObject))) as GameObject;
+                sprite.transform.SetParent(transform);
+                sprite.transform.localPosition = spriteName == "idle_" ? Vector3.down * 0.5f : Vector3.down;
             }
             return true;
         }

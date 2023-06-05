@@ -410,6 +410,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89088d3e99bd1bc4683a8498a2c212b9, type: 3}
+--- !u!1 &406091044 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6621486710160354514, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+  m_PrefabInstance: {fileID: 892614626}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &631973217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -559,9 +564,57 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: frogLineC.b
+      value: 0.76470596
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: frogLineC.g
+      value: 0.5058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: frogLineC.r
+      value: 0.80392164
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: vineLineC.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: vineLineC.b
+      value: 0.082235605
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: vineLineC.g
+      value: 0.5943396
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: vineLineC.r
+      value: 0.082235605
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: grappleLineC.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: grappleLineC.b
+      value: 0.7019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: grappleLineC.g
+      value: 0.70980394
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: grappleLineC.r
+      value: 0.7019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
       propertyPath: superJumpHeight
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6621486710160354522, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
+      propertyPath: grappleOriginPoint
+      value: 
+      objectReference: {fileID: 406091044}
     - target: {fileID: 6621486710160354525, guid: 6f466ed34c188924cac258f4627cade0, type: 3}
       propertyPath: camScrollSpeed
       value: 5
