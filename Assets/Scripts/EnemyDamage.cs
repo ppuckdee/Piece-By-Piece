@@ -12,6 +12,14 @@ public class EnemyDamage : MonoBehaviour
     private void Start()
     {
         playerHealth = FindObjectOfType<PlayerHealth>();
+        EnemyDamage[] otherEnemies = FindObjectsOfType<EnemyDamage>();
+        if(otherEnemies != null)
+        {
+            for(int i = 0; i < otherEnemies.Length; i++)
+            {
+                Physics2D.IgnoreCollision(levelCollider, otherEnemies[i].levelCollider);
+            }
+        }
 
         if (playerHealth != null)
         {
