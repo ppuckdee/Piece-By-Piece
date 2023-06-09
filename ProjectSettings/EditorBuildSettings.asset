@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EndScene.unity
     guid: f6f6eba4dd5d9d1479dbee75c9d2bdb2
+  - enabled: 1
+    path: Assets/Scenes/InbetweenDialogue.unity
+    guid: 1b8201ca885559447b406375e4f58ea5
   m_configObjects: {}

@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private bool jumpTrigger;
     public bool freeBody;
 
+    public string nextScene;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,10 @@ public class PlayerMovement : MonoBehaviour
         grounded = true;
         jumping = jumpTrigger = freeBody = false;
         SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDestroy() {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     // called second
@@ -41,6 +47,21 @@ public class PlayerMovement : MonoBehaviour
         if(scene.name == "MainMenu" || scene.name == "EndScene")
         {
             Destroy(gameObject);
+        }
+        if(scene.name == "InbetweenDialogue")
+        {
+            return;
+        }
+        else
+        {
+            foreach (Transform child in transform)
+            {
+                if(child.gameObject.name == "grappleLine")
+                {
+                    continue;
+                }
+                child.gameObject.SetActive(true);
+            }
         }
         Debug.Log(mode);
         FindObjectOfType<PlayerHealth>().refillHealth();

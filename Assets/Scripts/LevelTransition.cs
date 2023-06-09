@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelTransition : MonoBehaviour
 {
     public string nextScene;
+    public bool dialogue;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,15 @@ public class LevelTransition : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
+            if(dialogue)
+            {
+                other.gameObject.GetComponent<PlayerMovement>().nextScene = nextScene;
+                SceneManager.LoadScene("InbetweenDialogue", LoadSceneMode.Single);
+            }
+            else
+            {
+                SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
+            }
         }
     }
 }

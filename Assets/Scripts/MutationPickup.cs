@@ -6,10 +6,12 @@ public class MutationPickup : MonoBehaviour
 {
     public PlayerAbilities.mutationAbility ability;
     public PlayerAbilities.mutationType type;
+    public GameObject selectionText, tutorialText;
     // Start is called before the first frame update
     void Start()
     {
-        
+        selectionText.SetActive(true);
+        tutorialText.SetActive(false);
     }
 
     // Update is called once per frame
@@ -28,6 +30,8 @@ public class MutationPickup : MonoBehaviour
             {
                 Destroy(allPickups[i].gameObject);
             }
+            selectionText.SetActive(false);
+            tutorialText.SetActive(true);
         }
     }
 }

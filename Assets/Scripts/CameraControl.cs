@@ -32,7 +32,7 @@ public class CameraControl : MonoBehaviour
         Debug.Log("OnSceneLoaded: " + scene.name);
         Debug.Log(mode);
         
-        cam = Camera.main;
+        cam = FindObjectOfType<Camera>();
         cameraObj = cam.gameObject;
     }
 

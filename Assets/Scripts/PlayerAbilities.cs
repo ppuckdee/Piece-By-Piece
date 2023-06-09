@@ -46,6 +46,7 @@ public class PlayerAbilities : MonoBehaviour
         swinging = startedOnReel = false;
         grappleLine.SetActive(false);
         grappleUIObject.SetActive(false);
+        normalJumpHeight = GetComponent<PlayerMovement>().jumpHeight;
     }
 
     // Update is called once per frame
@@ -168,7 +169,6 @@ public class PlayerAbilities : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.W))
             {
-                normalJumpHeight = GetComponent<PlayerMovement>().jumpHeight;
                 GetComponent<PlayerMovement>().jumpHeight = superJumpHeight;
             }
             else if(Input.GetKeyUp(KeyCode.W))
@@ -212,6 +212,16 @@ public class PlayerAbilities : MonoBehaviour
         grappleLine.SetActive(false);
         GetComponent<PlayerMovement>().freeBody = false;
         //grappleOriginPoint.transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
+    public mutationType[] getAbilities()
+    {
+        mutationType[] types = new mutationType[mutations.Count];
+        for(int i = 0; i < types.Length; i++)
+        {
+            types[i] = mutations[i].type;
+        }
+        return types;
     }
 
     public bool GiveMutation(mutationAbility ability, mutationType type)
