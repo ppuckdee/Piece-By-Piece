@@ -38,7 +38,12 @@ public class PlayerMovement : MonoBehaviour
         {
             GetComponent<PlayerAbilities>().GiveMutation(PlayerAbilities.mutationAbility.SLIDE, PlayerAbilities.mutationType.ANIMAL);
         }
+        if(scene.name == "MainMenu" || scene.name == "EndScene")
+        {
+            Destroy(gameObject);
+        }
         Debug.Log(mode);
+        FindObjectOfType<PlayerHealth>().refillHealth();
         transform.position = FindObjectOfType<PlayerSpawn>().transform.position;
     }
 
